@@ -4,8 +4,12 @@ const App = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokeScore, setPokeScore] = useState([]);
   const [scoreBoard, setScoreBoard] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
-  const [pokeFetch, setPokeFetch] = useState(0);
+
+  const [bestScore, setBestScore] = useState(() => {
+    const saved = localStorage.getItem("bestScore");
+    const initialValue = JSON.parse(saved);
+    return initialValue || 0;
+  });
 
   useEffect(() => {
     const allNames = [
@@ -25,7 +29,7 @@ const App = () => {
         )
       )
     ).then((data) => setPokemons(data));
-  }, [pokeFetch]);
+  }, [scoreBoard]);
 
   const onClickHandler = (e, id) => {
     e.preventDefault();
@@ -36,12 +40,16 @@ const App = () => {
     if (pokeScore.includes(id)) {
       setScoreBoard(0);
       setPokeScore([]);
-      setPokeFetch((prev) => prev + 1);
     } else {
       const newScore = scoreBoard + 1;
       setPokeScore((prev) => [...prev, id]);
       setScoreBoard(newScore);
-      setBestScore((prev) => (prev < newScore ? newScore : prev));
+
+      setBestScore((prev) => {
+        const updated = newScore > prev ? newScore : prev;
+        localStorage.setItem("bestScore", JSON.stringify(updated));
+        return updated;
+      });
     }
   };
 
