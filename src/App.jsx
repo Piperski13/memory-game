@@ -8,7 +8,7 @@ const POKEMON_NAMES = [
   "gastly",
 
   // Second-stage evolutions
-  "kadabra",
+  "gyarados",
   "pidgeotto",
   "machoke",
   "charmeleon",
@@ -77,6 +77,10 @@ const App = () => {
           alt="Pokémon Logo"
           className="w-48 h-auto mb-4 my-3"
         />
+        <p>
+          Get points by clicking on a pokemon card but don't click on any more
+          than once!
+        </p>
         <h3>Score: {scoreBoard}</h3>
         <h3>Best Score: {bestScore}</h3>
         <button
@@ -89,7 +93,7 @@ const App = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-center">
         {pokemons.map((p) => (
           <div
-            onClick={(e) => handleCardClick(e, p.id)}
+            onClick={() => handleCardClick(p.id)}
             key={p.id}
             className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:scale-105 transition-transform duration-200"
           >
