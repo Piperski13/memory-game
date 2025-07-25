@@ -77,9 +77,9 @@ const App = () => {
           alt="Pokémon Logo"
           className="w-48 h-auto mb-4 my-3"
         />
-        <p>
-          Get points by clicking on a pokemon card but don't click on any more
-          than once!
+        <p className="text-yellow-400 font-bold text-center text-lg drop-shadow-md">
+          Get points by clicking on a Pokémon card — but don't click the same
+          one twice!
         </p>
         <h3>Score: {scoreBoard}</h3>
         <h3>Best Score: {bestScore}</h3>
