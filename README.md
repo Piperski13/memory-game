@@ -1,12 +1,44 @@
-# React + Vite
+# 🧠 Pokémon Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fun memory card game built with **React**, **TailwindCSS**, and **Vite**, using data from the [PokeAPI](https://pokeapi.co/). Click on each unique Pokémon card once — if you click the same one twice, your score resets! The game shuffles cards after every click and continues infinitely to test your memory skills. 🔁
 
-Currently, two official plugins are available:
+[🔗Live Demo on Netlify](https://your-netlify-link.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📸 Preview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Game Preview](./src/assets/memory-game-screen.jpg)
+
+---
+
+## 🚀 Features
+
+- ⚛️ Built with **React** and **Vite**
+- 🎨 Styled with **TailwindCSS**
+- 🔄 Cards shuffle after each click
+- 🧠 Keeps track of score and best score
+- ♾️ Infinite mode — game continues after a full set is completed
+- 🎮 Responsive and lightweight
+
+---
+
+## 🛠️ Technologies Used
+
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [PokeAPI](https://pokeapi.co/)
+- [Netlify](https://www.netlify.com/) for deployment
+
+---
+
+## 🧑‍💻 Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/memory-game.git
+cd memory-game
+npm install
+npm run dev
