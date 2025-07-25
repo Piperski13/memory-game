@@ -7,13 +7,13 @@ const POKEMON_NAMES = [
   "squirtle",
   "gastly",
 
-  // Second-stage evolutions
+  // // Second-stage evolutions
   "gyarados",
   "pidgeotto",
   "machoke",
   "charmeleon",
 
-  // Final evolutions
+  // // Final evolutions
   "blastoise",
   "gengar",
   "alakazam",
@@ -53,11 +53,16 @@ const App = () => {
       setClickedIds([]);
     } else {
       const newScore = scoreBoard + 1;
+      const newClickedIds = [...clickedIds, id];
       setClickedIds((prev) => [...prev, id]);
       setScoreBoard(newScore);
 
       if (newScore > bestScore) {
         setBestScore(newScore);
+      }
+
+      if (POKEMON_NAMES.length === newClickedIds.length) {
+        setClickedIds([]);
       }
     }
   };
