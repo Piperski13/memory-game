@@ -70,17 +70,40 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Pokémon</h1>
-      <h3>Score: {scoreBoard}</h3>
-      <h3>Best Score: {bestScore}</h3>
-      <button onClick={handleResetClick}>Reset</button>
-      {pokemons.map((p) => (
-        <div onClick={(e) => handleCardClick(e, p.id)} key={p.id}>
-          <h2>{p.name}</h2>
-          <img src={p.sprites.front_default} alt={p.name} />
-        </div>
-      ))}
+    <div className="flex flex-col justify-start items-center h-screen">
+      <div className="flex flex-col justify-center items-center">
+        <img
+          src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png"
+          alt="Pokémon Logo"
+          className="w-48 h-auto mb-4 my-3"
+        />
+        <h3>Score: {scoreBoard}</h3>
+        <h3>Best Score: {bestScore}</h3>
+        <button
+          onClick={handleResetClick}
+          className="px-4 py-2 my-5 bg-red-500 text-white rounded hover:bg-red-600 transition cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-center">
+        {pokemons.map((p) => (
+          <div
+            onClick={(e) => handleCardClick(e, p.id)}
+            key={p.id}
+            className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:scale-105 transition-transform duration-200"
+          >
+            <img
+              src={p.sprites.front_default}
+              alt={p.name}
+              className="mx-auto mb-2 w-20 h-20"
+            />
+            <h2 className="text-center capitalize font-semibold text-gray-800">
+              {p.name}
+            </h2>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
