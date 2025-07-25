@@ -4,30 +4,38 @@ const App = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokeScore, setPokeScore] = useState([]);
   const [scoreBoard, setScoreBoard] = useState(0);
+  const [pokeFetch, setPokeFetch] = useState(0);
 
   useEffect(() => {
-    const names = ["pikachu", "bulbasaur", "charmander"];
+    const allNames = [
+      "pikachu",
+      "bulbasaur",
+      "charmander",
+      "squirtle",
+      "eevee",
+      "snorlax",
+    ];
+    const randomNames = allNames.sort(() => 0.5 - Math.random());
 
     Promise.all(
-      names.map((name) =>
+      randomNames.map((name) =>
         fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) =>
           res.json()
         )
       )
     ).then((data) => setPokemons(data));
-  }, []);
+  }, [pokeFetch]);
 
   const onClickHandler = (e, id) => {
     e.preventDefault();
     scoreChecker(id);
-    console.log("pokemons : ", pokemons);
-    console.log("pokemScore : ", pokeScore);
   };
 
   const scoreChecker = (id) => {
     if (pokeScore.includes(id)) {
       setScoreBoard(0);
       setPokeScore([]);
+      setPokeFetch((prev) => prev + 1);
     } else {
       setPokeScore((prev) => [...prev, id]);
       setScoreBoard((prev) => prev + 1);
