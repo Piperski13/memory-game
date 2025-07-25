@@ -4,6 +4,7 @@ const App = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokeScore, setPokeScore] = useState([]);
   const [scoreBoard, setScoreBoard] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   const [pokeFetch, setPokeFetch] = useState(0);
 
   useEffect(() => {
@@ -37,8 +38,10 @@ const App = () => {
       setPokeScore([]);
       setPokeFetch((prev) => prev + 1);
     } else {
+      const newScore = scoreBoard + 1;
       setPokeScore((prev) => [...prev, id]);
-      setScoreBoard((prev) => prev + 1);
+      setScoreBoard(newScore);
+      setBestScore((prev) => (prev < newScore ? newScore : prev));
     }
   };
 
@@ -46,6 +49,7 @@ const App = () => {
     <div>
       <h1>Pokémon</h1>
       <h3>Score: {scoreBoard}</h3>
+      <h3>Best Score: {bestScore}</h3>
       {pokemons.map((p) => (
         <div onClick={(e) => onClickHandler(e, p.id)} key={p.id}>
           <h2>{p.name}</h2>
