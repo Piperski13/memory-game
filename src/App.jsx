@@ -26,7 +26,8 @@ const App = () => {
 
   const scoreChecker = (id) => {
     if (pokeScore.includes(id)) {
-      console.log("IT exists");
+      setScoreBoard(0);
+      setPokeScore([]);
     } else {
       setPokeScore((prev) => [...prev, id]);
       setScoreBoard((prev) => prev + 1);
