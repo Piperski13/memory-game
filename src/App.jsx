@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 
+const POKEMON_NAMES = [
+  // Base forms
+  "bulbasaur",
+  "charmander",
+  "squirtle",
+  "gastly",
+
+  // Second-stage evolutions
+  "kadabra",
+  "pidgeotto",
+  "machoke",
+  "charmeleon",
+
+  // Final evolutions
+  "blastoise",
+  "gengar",
+  "alakazam",
+  "snorlax",
+];
+
+const getRandomNames = (list, count) =>
+  [...list].sort(() => 0.5 - Math.random()).slice(0, count);
+
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [pokeScore, setPokeScore] = useState([]);
+  const [clickedIds, setClickedIds] = useState([]);
   const [scoreBoard, setScoreBoard] = useState(0);
 
   const [bestScore, setBestScore] = useState(() => {
-    const saved = localStorage.getItem("bestScore");
-    const initialValue = JSON.parse(saved);
-    return initialValue || 0;
+    return Number(localStorage.getItem("bestScore")) || 0;
   });
 
   useEffect(() => {
-    const allNames = [
-      "pikachu",
-      "bulbasaur",
-      "charmander",
-      "squirtle",
-      "eevee",
-      "snorlax",
-    ];
-    const randomNames = allNames.sort(() => 0.5 - Math.random());
-
+    const randomNames = getRandomNames(POKEMON_NAMES, POKEMON_NAMES.length);
     Promise.all(
       randomNames.map((name) =>
         fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) =>
@@ -31,26 +43,30 @@ const App = () => {
     ).then((data) => setPokemons(data));
   }, [scoreBoard]);
 
-  const onClickHandler = (e, id) => {
-    e.preventDefault();
-    scoreChecker(id);
-  };
+  useEffect(() => {
+    localStorage.setItem("bestScore", bestScore);
+  }, [bestScore]);
 
-  const scoreChecker = (id) => {
-    if (pokeScore.includes(id)) {
+  const handleCardClick = (id) => {
+    if (clickedIds.includes(id)) {
       setScoreBoard(0);
-      setPokeScore([]);
+      setClickedIds([]);
     } else {
       const newScore = scoreBoard + 1;
-      setPokeScore((prev) => [...prev, id]);
+      setClickedIds((prev) => [...prev, id]);
       setScoreBoard(newScore);
 
-      setBestScore((prev) => {
-        const updated = newScore > prev ? newScore : prev;
-        localStorage.setItem("bestScore", JSON.stringify(updated));
-        return updated;
-      });
+      if (newScore > bestScore) {
+        setBestScore(newScore);
+      }
     }
+  };
+
+  const handleResetClick = () => {
+    localStorage.clear();
+    setScoreBoard(0);
+    setClickedIds([]);
+    setBestScore(0);
   };
 
   return (
@@ -58,8 +74,9 @@ const App = () => {
       <h1>Pokémon</h1>
       <h3>Score: {scoreBoard}</h3>
       <h3>Best Score: {bestScore}</h3>
+      <button onClick={handleResetClick}>Reset</button>
       {pokemons.map((p) => (
-        <div onClick={(e) => onClickHandler(e, p.id)} key={p.id}>
+        <div onClick={(e) => handleCardClick(e, p.id)} key={p.id}>
           <h2>{p.name}</h2>
           <img src={p.sprites.front_default} alt={p.name} />
         </div>
