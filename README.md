@@ -42,3 +42,4 @@ git clone https://github.com/yourusername/memory-game.git
 cd memory-game
 npm install
 npm run dev
+```
